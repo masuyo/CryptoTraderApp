@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, ActivityIndicator } from 'react-native';
+import { StyleSheet, Text, View, ActivityIndicator, FlatList, ScrollView } from 'react-native';
 
 export default class App extends React.Component {
 
@@ -7,61 +7,65 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       isLoading: true,
-      dataSource: null,
+      items: {},
     }
   }
 
   componentDidMount() {
-    const headers = {
-      'Content-Type': 'application/json',
-      'X-Access-Token':'3D2ADF61-84D2-42A2-A715-A207B67A8CD8'
-    }
-    const apiUrl = 'https://obudai-api.azurewebsites.net/api/account/history';
-    // fetch uses get method
-    return fetch(apiUrl, headers)
-      .then ( (response) => response.json() )
-      .then ( (responseJson) => {
+    const apiUrl = "https://api.alternative.me/v2/listings/";
 
+    fetch(apiUrl)
+      .then ( response => response.json() )
+      .then ( responseJson => {
+        //console.log(responseJson);
         this.setState({
           isLoading: false,
-          dataSource: responseJson.status,
+          items: responseJson,
         })
 
-      })
-
-    .catch((error) => {
+      }).catch((error) => {
       console.log(error)
     });
   }
 
   render() {
-    if (this.state.isLoading) {
+    const { isLoading, items } = this.state;
+    if (isLoading) {
       return (
         <View style={styles.container}>
           <ActivityIndicator/>
         </View>
       );
     } else {
-      let status = this.state.dataSource;
-        <View style={styles.container}>
-        <ActivityIndicator/>
-      </View>
-      })
+
+      let currencies = items.data.map(item => {
+        if(item.id < 5000) {
+          return (<View key={item.id} style={styles.item}>
+            <Text>id: {item.id}, symbol: {item.symbol}, name: {item.name}</Text>
+          </View>)
+        }
+      });
 
       return (
-        <View style={styles.container}>
-          <Text>Content Loaded!</Text>
-        </View>
+        <ScrollView contentContainerStyle={styles.contentContainer}>
+          {currencies}
+        </ScrollView>
       );
     }
   }
 }
 
 const styles = StyleSheet.create({
+  contentContainer: {
+    paddingVertical: 20
+  },
   container: {
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
   },
+  item: {
+    flex: 1
+  }
 });
