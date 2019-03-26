@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, ActivityIndicator, FlatList, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, ActivityIndicator, ScrollView } from 'react-native';
 
 export default class App extends React.Component {
 
@@ -15,15 +15,15 @@ export default class App extends React.Component {
     const apiUrl = "https://api.alternative.me/v2/listings/";
 
     fetch(apiUrl)
-      .then ( response => response.json() )
-      .then ( responseJson => {
-        //console.log(responseJson);
-        this.setState({
-          isLoading: false,
-          items: responseJson,
-        })
+        .then ( response => response.json() )
+        .then ( responseJson => {
+          //console.log(responseJson);
+          this.setState({
+            isLoading: false,
+            items: responseJson,
+          })
 
-      }).catch((error) => {
+        }).catch((error) => {
       console.log(error)
     });
   }
@@ -32,9 +32,9 @@ export default class App extends React.Component {
     const { isLoading, items } = this.state;
     if (isLoading) {
       return (
-        <View style={styles.container}>
-          <ActivityIndicator/>
-        </View>
+          <View style={styles.container}>
+            <ActivityIndicator/>
+          </View>
       );
     } else {
 
@@ -47,9 +47,9 @@ export default class App extends React.Component {
       });
 
       return (
-        <ScrollView contentContainerStyle={styles.contentContainer}>
-          {currencies}
-        </ScrollView>
+          <ScrollView contentContainerStyle={styles.contentContainer}>
+            {currencies}
+          </ScrollView>
       );
     }
   }
