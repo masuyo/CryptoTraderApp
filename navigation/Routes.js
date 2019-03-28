@@ -3,20 +3,26 @@ import { View } from "react-native";
 import { createAppContainer, createStackNavigator } from "react-navigation";
 import AppHeader from "../components/AppHeader";
 import HomeScreen from "../screens/HomeScreen";
+import UpcomingScreen from "../screens/UpcomingScreen";
 
 const Routes = createStackNavigator(
     {
         Home: {
-            screen: HomeScreen
+            screen: HomeScreen,
+            navigationOptions: {
+                header: props => <AppHeader {...props} />
+            }
         },
-        Home2: {
-            screen: HomeScreen
+        Upcoming: {
+            screen: UpcomingScreen,
+            navigationOptions: {
+                header: props => <AppHeader {...props} />
+            }
         },
     },
     {
         initialRouteName: "Home",
         navigationOptions: {
-            header: props => <AppHeader {...props}/>,
             headerStyle: {
                 backgroundColor: "transparent"
             },

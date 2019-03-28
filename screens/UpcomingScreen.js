@@ -1,7 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import {createAppContainer, createStackNavigator} from 'react-navigation'
-import Listings from "../components/Listings";
+import {StyleSheet, Text, View} from 'react-native';
 import Tabs from "../navigation/TabNavigator";
 
 export default class HomeScreen extends React.Component {
@@ -10,14 +8,14 @@ export default class HomeScreen extends React.Component {
     }
 
     static navigationOptions = {
-        title: 'Welcome',
+        title: 'Upcoming',
     };
 
     render() {
         const { navigate } = this.props.navigation;
         return (
             <View style={styles.container}>
-                <Listings/>
+                <Text>Hi, upcoming stuff will be here!</Text>
                 <Tabs />
             </View>
         );

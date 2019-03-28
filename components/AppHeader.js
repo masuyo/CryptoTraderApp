@@ -1,21 +1,16 @@
 import React from "react";
 import { Header } from "react-navigation";
-import { View, Platform } from "react-native";
-import LinearGradient from "react-native-linear-gradient";
+import { View } from "react-native";
 
 const AppHeader = props => {
     return (
         <View
             style={{
-                height: 56,
-                marginTop: 20
+                height: 50,
+                marginTop: 0
             }}
         >
-            <LinearGradient
-                colors={["#6200EE", "#3700B3"]}
-            >
-                <Header {...props} />
-            </LinearGradient>
+            <Header {...props} />
         </View>
     );
 };
