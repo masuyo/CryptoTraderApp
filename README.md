@@ -1,4 +1,4 @@
-# CryptoTraderApp
+# React Native Practice Project
  
  React Native mobile app
 ` API: https://alternative.me/crypto/api/`
