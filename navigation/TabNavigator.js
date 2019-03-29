@@ -5,9 +5,34 @@ import HomeScreen from "../screens/HomeScreen";
 import UpcomingScreen from "../screens/UpcomingScreen";
 import AppHeader from "../components/AppHeader";
 
+const CustomStackNavigator = screen => {
+    return (
+        createStackNavigator({
+            Root: {
+                screen: screen,
+            },
+        }, {
+            defaultNavigationOptions: {
+                header: props => <AppHeader {...props} />,
+                headerTintColor: '#fff',
+                headerStyle: {
+                    backgroundColor: '#71b9c4',
+                },
+            },
+            navigationOptions: {
+                tabBarLabel: 'Home!',
+            },
+        })
+    )
+};
+
 const TabNavigator = createBottomTabNavigator({
-    Home: HomeScreen,
-    Upcoming: UpcomingScreen
+    Home: {
+        screen: CustomStackNavigator(HomeScreen),
+    },
+    Upcoming: {
+        screen: CustomStackNavigator(UpcomingScreen),
+    }
 },
     {
         defaultNavigationOptions: ({ navigation }) => ({
@@ -30,20 +55,4 @@ const TabNavigator = createBottomTabNavigator({
         },
     });
 
-const Navigation = createStackNavigator({
-    Root: { screen: TabNavigator},
-}, {
-    defaultNavigationOptions: {
-        header: props => <AppHeader {...props} />,
-        headerTintColor: '#fff',
-        headerStyle: {
-            backgroundColor: '#000',
-            color: 'blue'
-        },
-    },
-    navigationOptions: {
-        tabBarLabel: 'Home!',
-    },
-});
-
-export default createAppContainer(Navigation);
+export default createAppContainer(TabNavigator);
