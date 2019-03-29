@@ -5,6 +5,10 @@ import HomeScreen from "../screens/HomeScreen";
 import UpcomingScreen from "../screens/UpcomingScreen";
 import AppHeader from "../components/AppHeader";
 
+const HeaderColor = '#71b9c4';
+const ActiveTintColor = 'tomato';
+const InactiveTintColor = 'gray';
+
 const CustomStackNavigator = screen => {
     return (
         createStackNavigator({
@@ -16,11 +20,8 @@ const CustomStackNavigator = screen => {
                 header: props => <AppHeader {...props} />,
                 headerTintColor: '#fff',
                 headerStyle: {
-                    backgroundColor: '#71b9c4',
+                    backgroundColor: HeaderColor,
                 },
-            },
-            navigationOptions: {
-                tabBarLabel: 'Home!',
             },
         })
     )
@@ -50,8 +51,8 @@ const TabNavigator = createBottomTabNavigator({
             },
         }),
         tabBarOptions: {
-            activeTintColor: 'tomato',
-            inactiveTintColor: 'gray',
+            activeTintColor: ActiveTintColor,
+            inactiveTintColor: InactiveTintColor,
         },
     });
 
