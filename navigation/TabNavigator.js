@@ -1,8 +1,9 @@
 import React from 'react';
-import { createBottomTabNavigator, createAppContainer} from 'react-navigation';
+import { createBottomTabNavigator, createAppContainer, createStackNavigator} from 'react-navigation';
 import { Icon } from 'react-native-elements'
 import HomeScreen from "../screens/HomeScreen";
 import UpcomingScreen from "../screens/UpcomingScreen";
+import AppHeader from "../components/AppHeader";
 
 const TabNavigator = createBottomTabNavigator({
     Home: HomeScreen,
@@ -15,13 +16,11 @@ const TabNavigator = createBottomTabNavigator({
                 let iconName;
                 if (routeName === 'Home') {
                     iconName = 'home';
-                    // Sometimes we want to add badges to some icons.
-                    // You can check the implementation below.
+
                 } else if (routeName === 'Upcoming') {
                     iconName = 'child-friendly';
                 }
 
-                // You can return any component that you like here!
                 return <Icon name={iconName} size={25} color={tintColor} />;
             },
         }),
@@ -31,4 +30,20 @@ const TabNavigator = createBottomTabNavigator({
         },
     });
 
-export default createAppContainer(TabNavigator);
+const Navigation = createStackNavigator({
+    Root: { screen: TabNavigator},
+}, {
+    defaultNavigationOptions: {
+        header: props => <AppHeader {...props} />,
+        headerTintColor: '#fff',
+        headerStyle: {
+            backgroundColor: '#000',
+            color: 'blue'
+        },
+    },
+    navigationOptions: {
+        tabBarLabel: 'Home!',
+    },
+});
+
+export default createAppContainer(Navigation);

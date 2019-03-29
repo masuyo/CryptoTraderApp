@@ -4,11 +4,7 @@ import { View } from "react-native";
 
 const AppHeader = props => {
     return (
-        <View
-            style={{
-                height: 70,
-            }}
-        >
+        <View>
             <Header {...props} />
         </View>
     );
