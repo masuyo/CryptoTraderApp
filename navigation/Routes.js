@@ -1,30 +1,22 @@
 import React from "react";
-import { View } from "react-native";
 import { createAppContainer, createStackNavigator } from "react-navigation";
 import AppHeader from "../components/AppHeader";
 import HomeScreen from "../screens/HomeScreen";
 import UpcomingScreen from "../screens/UpcomingScreen";
 
+// creates a React component
 const Routes = createStackNavigator(
     {
-        Home: {
-            screen: HomeScreen,
-            navigationOptions: {
-                header: props => <AppHeader {...props} />
-            }
-        },
-        Upcoming: {
-            screen: UpcomingScreen,
-            navigationOptions: {
-                header: props => <AppHeader {...props} />
-            }
-        },
+        Home: HomeScreen,
+        Upcoming: UpcomingScreen
     },
     {
         initialRouteName: "Home",
         navigationOptions: {
             headerStyle: {
-                backgroundColor: "transparent"
+                backgroundColor: 'black',
+                borderWidth: 1,
+                borderBottomColor: 'white'
             },
             headerTitleStyle: {
                 fontWeight: "bold",

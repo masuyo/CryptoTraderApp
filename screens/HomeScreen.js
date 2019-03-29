@@ -1,8 +1,6 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import {createAppContainer, createStackNavigator} from 'react-navigation'
+import { StyleSheet, View, Text, Button } from 'react-native';
 import Listings from "../components/Listings";
-import Tabs from "../navigation/TabNavigator";
 
 export default class HomeScreen extends React.Component {
     constructor(props) {
@@ -10,15 +8,17 @@ export default class HomeScreen extends React.Component {
     }
 
     static navigationOptions = {
-        title: 'Welcome',
+        title: 'Welcome333',
     };
 
     render() {
-        const { navigate } = this.props.navigation;
         return (
             <View style={styles.container}>
+                <Text>Home</Text>
+                <Button
+                    title="Go to Upcoming"
+                    onPress={() => this.props.navigation.navigate('Upcoming')}/>
                 <Listings/>
-                <Tabs />
             </View>
         );
     }

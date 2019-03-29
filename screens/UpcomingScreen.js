@@ -1,8 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import Tabs from "../navigation/TabNavigator";
 
-export default class HomeScreen extends React.Component {
+export default class UpcomingScreen extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -12,11 +11,9 @@ export default class HomeScreen extends React.Component {
     };
 
     render() {
-        const { navigate } = this.props.navigation;
         return (
             <View style={styles.container}>
                 <Text>Hi, upcoming stuff will be here!</Text>
-                <Tabs />
             </View>
         );
     }

@@ -6,8 +6,7 @@ const AppHeader = props => {
     return (
         <View
             style={{
-                height: 50,
-                marginTop: 0
+                height: 70,
             }}
         >
             <Header {...props} />
