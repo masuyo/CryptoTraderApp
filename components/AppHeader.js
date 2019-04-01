@@ -1,6 +1,6 @@
 import React from "react";
-import { Header } from "react-navigation";
-import { View } from "react-native";
+import {Header} from "react-navigation";
+import {View} from "react-native";
 
 const AppHeader = props => {
     return (

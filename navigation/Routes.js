@@ -1,5 +1,5 @@
 import React from "react";
-import { createAppContainer, createStackNavigator } from "react-navigation";
+import {createAppContainer, createStackNavigator} from "react-navigation";
 import HomeScreen from "../screens/HomeScreen";
 import UpcomingScreen from "../screens/UpcomingScreen";
 
@@ -10,7 +10,7 @@ const Routes = createStackNavigator(
         Upcoming: UpcomingScreen
     },
     {
-        initialRouteName: "Home",
+        initialRouteName: 'Home',
         navigationOptions: {
             headerStyle: {
                 backgroundColor: 'black',
@@ -18,10 +18,10 @@ const Routes = createStackNavigator(
                 borderBottomColor: 'white'
             },
             headerTitleStyle: {
-                fontWeight: "bold",
-                color: "#fff",
+                fontWeight: 'bold',
+                color: '#fff',
             },
-            headerTintColor: "#fff"
+            headerTintColor: '#fff'
         }
     }
 );

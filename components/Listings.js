@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, ActivityIndicator, ScrollView, FlatList } from 'react-native';
+import {StyleSheet, Text, View, ActivityIndicator, ScrollView} from 'react-native';
 
 export default class Listings extends React.Component {
     constructor(props) {

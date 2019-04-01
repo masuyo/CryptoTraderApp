@@ -1,11 +1,11 @@
 import React from 'react';
-import { createBottomTabNavigator, createAppContainer, createStackNavigator} from 'react-navigation';
-import { Icon } from 'react-native-elements'
+import {createBottomTabNavigator, createAppContainer, createStackNavigator} from 'react-navigation';
+import {Icon} from 'react-native-elements'
 import HomeScreen from "../screens/HomeScreen";
 import UpcomingScreen from "../screens/UpcomingScreen";
 import AppHeader from "../components/AppHeader";
 
-const HeaderColor = '#71b9c4';
+const HeaderColor = '#80ccc4';
 const ActiveTintColor = 'tomato';
 const InactiveTintColor = 'gray';
 
