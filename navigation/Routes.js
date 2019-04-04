@@ -3,7 +3,6 @@ import {createAppContainer, createStackNavigator} from "react-navigation";
 import HomeScreen from "../screens/HomeScreen";
 import UpcomingScreen from "../screens/UpcomingScreen";
 
-// creates a React component
 const Routes = createStackNavigator(
     {
         Home: HomeScreen,

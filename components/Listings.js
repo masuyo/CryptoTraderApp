@@ -2,21 +2,15 @@ import React from 'react';
 import {StyleSheet, Text, View, ActivityIndicator, ScrollView} from 'react-native';
 
 export default class Listings extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            isLoading: true,
-            items: {},
-        }
-    }
+    state = {
+        isLoading: true, items: {},
+    };
 
     componentDidMount() {
         const apiUrl = "https://api.alternative.me/v2/listings/";
 
         fetch(apiUrl)
-            .then ( response => response.json() )
-            .then ( responseJson => {
-                //console.log(responseJson);
+            .then ( response => response.json() ).then ( responseJson => {//console.log(responseJson);
                 this.setState({
                     isLoading: false,
                     items: responseJson,
@@ -32,7 +26,7 @@ export default class Listings extends React.Component {
         if (isLoading) {
             return (
                 <View style={styles.container}>
-                    <ActivityIndicator/>
+                    <ActivityIndicator />
                 </View>
             );
         } else {

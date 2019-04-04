@@ -1,10 +1,10 @@
 {
-  "packagerPort": null,
-  "packagerPid": null,
+  "packagerPort": 19001,
+  "packagerPid": 358,
   "devToolsPort": 19002,
-  "expoServerPort": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null,
+  "expoServerPort": 19000,
+  "expoServerNgrokUrl": "https://th-8fi.anonymous.cryptotraderapp.exp.direct",
+  "packagerNgrokUrl": "https://packager.th-8fi.anonymous.cryptotraderapp.exp.direct",
+  "ngrokPid": 503,
   "webpackServerPort": null
 }

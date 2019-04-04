@@ -3,10 +3,6 @@ import {StyleSheet, View, Text, Button} from 'react-native';
 import Listings from "../components/Listings";
 
 export default class HomeScreen extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     static navigationOptions = {
         title: 'Home',
     };
