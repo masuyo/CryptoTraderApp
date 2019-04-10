@@ -1,11 +1,8 @@
 import React from 'react';
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import {connect} from 'react-redux';
 
-export default class TouchableCounter extends React.Component {
-    state = {
-        counter: 0,
-    };
-
+class TouchableCounter extends React.Component {
     increaseCounter = () => {
         this.setState({counter: this.state.counter + 1})
     };
@@ -17,18 +14,25 @@ export default class TouchableCounter extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <TouchableOpacity onPress={()=>this.increaseCounter()}>
+                <TouchableOpacity onPress={() => this.increaseCounter()}>
                     <Text>Increase</Text>
                 </TouchableOpacity>
-                <Text>{this.state.counter}</Text>
-                <TouchableOpacity onPress={()=>this.decreaseCounter()}>
+                <Text>{this.props.counter}</Text>
+                <TouchableOpacity onPress={() => this.decreaseCounter()}>
                     <Text>Decrease</Text>
                 </TouchableOpacity>
             </View>
         );
     }
-
 }
+
+const mapStateToProps = (state) => {
+    return {
+        counter: state.counter
+    }
+};
+
+export default connect(mapStateToProps)(TouchableCounter);
 
 const styles = StyleSheet.create({
     contentContainer: {

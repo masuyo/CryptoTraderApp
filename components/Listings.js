@@ -1,28 +1,15 @@
 import React from 'react';
 import {StyleSheet, Text, View, ActivityIndicator, ScrollView} from 'react-native';
+import { connect } from "react-redux";
+import { getData } from "../store/Actions";
 
-export default class Listings extends React.Component {
-    state = {
-        isLoading: true, items: {},
-    };
-
+class Listings extends React.Component {
     componentDidMount() {
-        const apiUrl = "https://api.alternative.me/v2/listings/";
-
-        fetch(apiUrl)
-            .then ( response => response.json() ).then ( responseJson => {//console.log(responseJson);
-                this.setState({
-                    isLoading: false,
-                    items: responseJson,
-                })
-
-            }).catch((error) => {
-            console.log(error)
-        });
+        this.props.getData();
     }
 
     render() {
-        const { isLoading, items } = this.state;
+        const { isLoading } = this.props;
         if (isLoading) {
             return (
                 <View style={styles.container}>
@@ -31,7 +18,7 @@ export default class Listings extends React.Component {
             );
         } else {
 
-            let currencies = items.data.map(item => {
+            let currencies = this.props.currencies.map(item => {
                 if(item.id < 5000) {
                     return (<View key={item.id} style={styles.item}>
                         <Text>id: {item.id}, symbol: {item.symbol}, name: {item.name}</Text>
@@ -48,6 +35,12 @@ export default class Listings extends React.Component {
     }
 }
 
+function mapStateToProps(state) {
+    return {
+      currencies: state.currencies
+    };
+}
+
 const styles = StyleSheet.create({
     contentContainer: {
         paddingVertical: 20
@@ -62,3 +55,5 @@ const styles = StyleSheet.create({
         flex: 1
     }
 });
+
+export default connect(mapStateToProps, { getData })(Listings);
