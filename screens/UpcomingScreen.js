@@ -3,6 +3,10 @@ import {StyleSheet, View} from 'react-native';
 import TouchableCounter from "../components/TouchableCounter";
 
 export default class UpcomingScreen extends React.Component {
+    static navigationOptions = {
+        title: 'Upcoming shit',
+    };
+
     render() {
         return (
             <View style={styles.container}>
