@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, View, ActivityIndicator, ScrollView} from 'react-native';
+import {StyleSheet, Text, View, ActivityIndicator, FlatList} from 'react-native';
 import { connect } from "react-redux";
 import { getData } from "../store/Actions";
 
@@ -8,8 +8,14 @@ class Listings extends React.Component {
         this.props.getData();
     }
 
+    renderItem = ( { item }) => (
+      <View style={styles.item}>
+          <Text>id: {item.id}, symbol: {item.symbol}, name: {item.name}</Text>
+      </View>
+    );
+
     render() {
-        const { isLoading } = this.props;
+        const { isLoading, currencies } = this.props;
         if (isLoading) {
             return (
                 <View style={styles.container}>
@@ -18,41 +24,37 @@ class Listings extends React.Component {
             );
         } else {
 
-            let currencies = this.props.currencies.map(item => {
-                if(item.id < 5000) {
-                    return (<View key={item.id} style={styles.item}>
-                        <Text>id: {item.id}, symbol: {item.symbol}, name: {item.name}</Text>
-                    </View>)
-                }
-            });
-
             return (
-                <ScrollView contentContainerStyle={styles.contentContainer}>
-                    {currencies}
-                </ScrollView>
+                <FlatList
+                    styles={{ flex: 1 }}
+                    data={currencies}
+                    renderItem={this.renderItem}
+                />
             );
         }
     }
 }
 
 function mapStateToProps(state) {
+    let storedCurrencies = state.currencies.map(currency => ({ key: currency.id, ...currency}));
     return {
-      currencies: state.currencies
+      currencies: storedCurrencies
     };
 }
 
 const styles = StyleSheet.create({
     contentContainer: {
-        paddingVertical: 20
+        paddingVertical: 0
     },
     container: {
         flex: 1,
         backgroundColor: '#fff',
-        alignItems: 'center',
         justifyContent: 'center',
     },
     item: {
-        flex: 1
+        padding: 10,
+        borderBottomWidth: 1,
+        borderBottomColor: '#ccc'
     }
 });
 

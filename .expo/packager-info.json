@@ -1,10 +1,10 @@
 {
   "packagerPort": 19001,
-  "packagerPid": 14528,
+  "packagerPid": 13324,
   "devToolsPort": 19002,
   "expoServerPort": 19000,
   "expoServerNgrokUrl": "https://th-8fi.anonymous.react-native-practice.exp.direct",
   "packagerNgrokUrl": "https://packager.th-8fi.anonymous.react-native-practice.exp.direct",
-  "ngrokPid": 3480,
+  "ngrokPid": 3716,
   "webpackServerPort": null
 }

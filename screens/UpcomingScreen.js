@@ -10,7 +10,6 @@ export default class UpcomingScreen extends React.Component {
             </View>
         );
     }
-
 }
 
 const styles = StyleSheet.create({

@@ -1,4 +1,4 @@
-import {DATA_LOADED} from "../constants/ActionTypes";
+import {DATA_LOADED, INCREASE_COUNTER, DECREASE_COUNTER} from "../constants/ActionTypes";
 
 export function getData() {
     return function(dispatch) {
@@ -8,4 +8,16 @@ export function getData() {
                 dispatch({ type: DATA_LOADED, payload: json.data });
             });
     };
+}
+
+export function increaseCounter() {
+    return function(dispatch) {
+        dispatch({type: INCREASE_COUNTER});
+    }
+}
+
+export function decreaseCounter() {
+    return function(dispatch) {
+        dispatch({type: DECREASE_COUNTER});
+    }
 }

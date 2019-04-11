@@ -1,8 +1,9 @@
-import { DATA_LOADED } from "../constants/ActionTypes";
+import { DATA_LOADED, INCREASE_COUNTER, DECREASE_COUNTER } from "../constants/ActionTypes";
 
 const initialState = {
     isLoading: true,
     currencies: [],
+    counter: 0
 };
 
 function rootReducer(state = initialState, action) {
@@ -11,6 +12,16 @@ function rootReducer(state = initialState, action) {
             isLoading: false,
             currencies: state.currencies.concat(action.payload)
         });
+    }
+    if (action.type === INCREASE_COUNTER) {
+        return {
+            counter: state.counter + 1
+        }
+    }
+    if (action.type === DECREASE_COUNTER) {
+        return {
+            counter: state.counter - 1
+        }
     }
     return state;
 }
