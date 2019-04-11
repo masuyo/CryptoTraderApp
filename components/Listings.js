@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, View, ActivityIndicator, FlatList, Button} from 'react-native';
 import { connect } from "react-redux";
-import { getData } from "../store/Actions";
+import { getData, refreshData } from "../store/Actions";
 
 class Listings extends React.Component {
     componentDidMount() {
@@ -15,7 +15,8 @@ class Listings extends React.Component {
     );
 
     render() {
-        const { isLoading, currencies } = this.props;
+        console.log("REFRESH: ", this.props.refresh);
+        const { isLoading, currencies, refresh } = this.props;
         if (isLoading) {
             return (
                 <View style={styles.container}>
@@ -27,11 +28,14 @@ class Listings extends React.Component {
             <View style={styles.container}>
                 <Button
                     title="Refresh"
-                    onPress={() => this.props.getData()}/>
+                    onPress={() => this.props.refreshData()}
+                />
                 <FlatList
                     styles={{ flex: 1 }}
                     data={currencies}
                     renderItem={this.renderItem}
+                    refreshing={refresh}
+                    onRefresh={() => this.props.getData()}
                 />
             </View>
         );
@@ -41,12 +45,14 @@ class Listings extends React.Component {
 function mapStateToProps(state) {
     let storedCurrencies = state.currency.currencies.map(currency => ({ key: currency.id, ...currency}));
     return {
-      currencies: storedCurrencies
+        refresh: state.currency.refresh,
+        currencies: storedCurrencies,
     };
 }
 
 const mapDispatchToProps = {
-    getData
+    getData,
+    refreshData
 };
 
 const styles = StyleSheet.create({
