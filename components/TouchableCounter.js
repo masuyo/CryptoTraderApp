@@ -19,18 +19,14 @@ class TouchableCounter extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => {
-    return {
-        counter: state.counter
-    }
-};
+const mapStateToProps = state => ({
+    counter: state.counter.counter
+});
 
 const mapDispatchToProps = {
     increaseCounter,
     decreaseCounter
 };
-
-export default connect(mapStateToProps, mapDispatchToProps)(TouchableCounter);
 
 const styles = StyleSheet.create({
     contentContainer: {
@@ -46,3 +42,5 @@ const styles = StyleSheet.create({
         flex: 1
     }
 });
+
+export default connect(mapStateToProps, mapDispatchToProps)(TouchableCounter);

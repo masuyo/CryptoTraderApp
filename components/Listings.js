@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, View, ActivityIndicator, FlatList} from 'react-native';
+import {StyleSheet, Text, View, ActivityIndicator, FlatList, Button} from 'react-native';
 import { connect } from "react-redux";
 import { getData } from "../store/Actions";
 
@@ -8,7 +8,7 @@ class Listings extends React.Component {
         this.props.getData();
     }
 
-    renderItem = ( { item }) => (
+    renderItem = ({ item }) => (
       <View style={styles.item}>
           <Text>id: {item.id}, symbol: {item.symbol}, name: {item.name}</Text>
       </View>
@@ -22,25 +22,32 @@ class Listings extends React.Component {
                     <ActivityIndicator />
                 </View>
             );
-        } else {
-
-            return (
+        }
+        return (
+            <View style={styles.container}>
+                <Button
+                    title="Refresh"
+                    onPress={() => this.props.getData()}/>
                 <FlatList
                     styles={{ flex: 1 }}
                     data={currencies}
                     renderItem={this.renderItem}
                 />
-            );
-        }
+            </View>
+        );
     }
 }
 
 function mapStateToProps(state) {
-    let storedCurrencies = state.currencies.map(currency => ({ key: currency.id, ...currency}));
+    let storedCurrencies = state.currency.currencies.map(currency => ({ key: currency.id, ...currency}));
     return {
       currencies: storedCurrencies
     };
 }
+
+const mapDispatchToProps = {
+    getData
+};
 
 const styles = StyleSheet.create({
     contentContainer: {
@@ -49,6 +56,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff',
+        alignItems: 'center',
         justifyContent: 'center',
     },
     item: {
@@ -58,4 +66,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default connect(mapStateToProps, { getData })(Listings);
+export default connect(mapStateToProps, mapDispatchToProps)(Listings);

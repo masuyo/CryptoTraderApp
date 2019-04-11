@@ -1,23 +1,15 @@
-import {DATA_LOADED, INCREASE_COUNTER, DECREASE_COUNTER} from "../constants/ActionTypes";
+import {INCREASE_COUNTER, DECREASE_COUNTER} from "../constants/ActionTypes";
+import {GET_CURRENCIES_PENDING, GET_CURRENCIES_FULFILLED, GET_CURRENCIES_REJECTED} from "../reducer/CurrencyReducer";
 
-export function getData() {
-    return function(dispatch) {
-        return fetch("https://api.alternative.me/v2/listings/")
-            .then(response => response.json())
-            .then(json => {
-                dispatch({ type: DATA_LOADED, payload: json.data });
-            });
-    };
-}
+export const getData = () => dispatch => {
+    dispatch({type: GET_CURRENCIES_PENDING});
+    return fetch("https://api.alternative.me/v2/listings/")
+        .then(response => response.json())
+        .then(json => {
+            dispatch({type: GET_CURRENCIES_FULFILLED, payload: json.data});
+        })
+        .catch(() => (dispatch({type: GET_CURRENCIES_REJECTED})))
+};
 
-export function increaseCounter() {
-    return function(dispatch) {
-        dispatch({type: INCREASE_COUNTER});
-    }
-}
-
-export function decreaseCounter() {
-    return function(dispatch) {
-        dispatch({type: DECREASE_COUNTER});
-    }
-}
+export const increaseCounter = () => dispatch => dispatch({type: INCREASE_COUNTER});
+export const decreaseCounter = () => dispatch => dispatch({type: DECREASE_COUNTER});
