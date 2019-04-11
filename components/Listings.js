@@ -1,28 +1,21 @@
 import React from 'react';
-import {StyleSheet, Text, View, ActivityIndicator, ScrollView} from 'react-native';
+import {StyleSheet, Text, View, ActivityIndicator, FlatList} from 'react-native';
+import { connect } from "react-redux";
+import { getData } from "../store/Actions";
 
-export default class Listings extends React.Component {
-    state = {
-        isLoading: true, items: {},
-    };
-
+class Listings extends React.Component {
     componentDidMount() {
-        const apiUrl = "https://api.alternative.me/v2/listings/";
-
-        fetch(apiUrl)
-            .then ( response => response.json() ).then ( responseJson => {//console.log(responseJson);
-                this.setState({
-                    isLoading: false,
-                    items: responseJson,
-                })
-
-            }).catch((error) => {
-            console.log(error)
-        });
+        this.props.getData();
     }
 
+    renderItem = ( { item }) => (
+      <View style={styles.item}>
+          <Text>id: {item.id}, symbol: {item.symbol}, name: {item.name}</Text>
+      </View>
+    );
+
     render() {
-        const { isLoading, items } = this.state;
+        const { isLoading, currencies } = this.props;
         if (isLoading) {
             return (
                 <View style={styles.container}>
@@ -31,34 +24,38 @@ export default class Listings extends React.Component {
             );
         } else {
 
-            let currencies = items.data.map(item => {
-                if(item.id < 5000) {
-                    return (<View key={item.id} style={styles.item}>
-                        <Text>id: {item.id}, symbol: {item.symbol}, name: {item.name}</Text>
-                    </View>)
-                }
-            });
-
             return (
-                <ScrollView contentContainerStyle={styles.contentContainer}>
-                    {currencies}
-                </ScrollView>
+                <FlatList
+                    styles={{ flex: 1 }}
+                    data={currencies}
+                    renderItem={this.renderItem}
+                />
             );
         }
     }
 }
 
+function mapStateToProps(state) {
+    let storedCurrencies = state.currencies.map(currency => ({ key: currency.id, ...currency}));
+    return {
+      currencies: storedCurrencies
+    };
+}
+
 const styles = StyleSheet.create({
     contentContainer: {
-        paddingVertical: 20
+        paddingVertical: 0
     },
     container: {
         flex: 1,
         backgroundColor: '#fff',
-        alignItems: 'center',
         justifyContent: 'center',
     },
     item: {
-        flex: 1
+        padding: 10,
+        borderBottomWidth: 1,
+        borderBottomColor: '#ccc'
     }
 });
+
+export default connect(mapStateToProps, { getData })(Listings);
