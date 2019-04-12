@@ -43,7 +43,10 @@ class Listings extends React.Component {
 }
 
 function mapStateToProps(state) {
-    let storedCurrencies = state.currency.currencies.map(currency => ({ key: currency.id, ...currency}));
+    let storedCurrencies = state.currency.currencies.map(currency => ({key: currency.id.toString(), ...currency}));
+    //let obj = state.currency.currencies;
+    console.log("object",state.currency.currencies);
+
     return {
         refresh: state.currency.refresh,
         currencies: storedCurrencies,

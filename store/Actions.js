@@ -3,10 +3,13 @@ import {DECREASE_COUNTER, INCREASE_COUNTER} from "../reducers/CounterReducer";
 
 export const getData = () => dispatch => {
     dispatch({type: GET_CURRENCIES_PENDING});
-    return fetch("https://api.alternative.me/v2/listings/")
+    return fetch("https://api.alternative.me/v2/ticker/?limit=10&start=13&sort=id")
         .then(response => response.json())
         .then(json => {
-            dispatch({type: GET_CURRENCIES_FULFILLED, payload: json.data});
+            console.log("JSON FROM ACTION",json.data);
+            let obj = Object.values(json.data);
+            let currencies = Object.values(obj);
+            dispatch({type: GET_CURRENCIES_FULFILLED, payload: currencies});
         })
         .catch(() => (dispatch({type: GET_CURRENCIES_REJECTED})))
 };
