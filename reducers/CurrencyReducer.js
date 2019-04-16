@@ -6,7 +6,8 @@ export const REFRESH_CURRENCIES = "REFRESH_CURRENCIES";
 const initialState = {
     isLoading: true,
     currencies: [],
-    refresh: false
+    refresh: false,
+    offset: 0,
 };
 
 function currencyReducer(state = initialState, action) {
@@ -15,6 +16,8 @@ function currencyReducer(state = initialState, action) {
             return {
                 ...state,
                 isLoading: false,
+                refresh: false,
+                offset: state.offset + 20,
                 currencies: [...state.currencies, ...action.payload],
             };
         case GET_CURRENCIES_PENDING:
@@ -28,9 +31,10 @@ function currencyReducer(state = initialState, action) {
                 isLoading: false,
             };
         case REFRESH_CURRENCIES:
-            console.log("REFRESH!");
+            console.log("REFRESH!4444", state.refresh);
             return {
                 ...state,
+                offset: 0,
                 refresh: !state.refresh,
             };
         default:

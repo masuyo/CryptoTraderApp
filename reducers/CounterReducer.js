@@ -2,7 +2,7 @@ export const INCREASE_COUNTER = "INCREASE_COUNTER";
 export const DECREASE_COUNTER = "DECREASE_COUNTER";
 
 const initialState = {
-    counter: 0
+    counter: 0,
 };
 
 function counterReducer(state = initialState, action) {

@@ -5,7 +5,7 @@ import { getData, refreshData } from "../store/Actions";
 
 class Listings extends React.Component {
     componentDidMount() {
-        this.props.getData();
+        this.props.getData(0);
     }
 
     renderItem = ({ item }) => (
@@ -16,7 +16,7 @@ class Listings extends React.Component {
 
     render() {
         console.log("REFRESH: ", this.props.refresh);
-        const { isLoading, currencies, refresh } = this.props;
+        const { isLoading, currencies, refresh, offset } = this.props;
         if (isLoading) {
             return (
                 <View style={styles.container}>
@@ -35,7 +35,7 @@ class Listings extends React.Component {
                     data={currencies}
                     renderItem={this.renderItem}
                     refreshing={refresh}
-                    onRefresh={() => this.props.getData()}
+                    onRefresh={() => this.props.getData(offset)}
                 />
             </View>
         );
@@ -49,6 +49,7 @@ function mapStateToProps(state) {
 
     return {
         refresh: state.currency.refresh,
+        offset: state.currency.offset,
         currencies: storedCurrencies,
     };
 }
