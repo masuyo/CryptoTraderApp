@@ -14,6 +14,11 @@ class Listings extends React.Component {
       </View>
     );
 
+    handleRefresh() {
+        this.props.refreshData();
+        this.props.getData(0);
+    }
+
     render() {
         console.log("REFRESH: ", this.props.refresh);
         const { isLoading, currencies, refresh, offset } = this.props;
@@ -28,14 +33,16 @@ class Listings extends React.Component {
             <View style={styles.container}>
                 <Button
                     title="Refresh"
-                    onPress={() => this.props.refreshData()}
+                    onPress={() => this.handleRefresh()}
                 />
                 <FlatList
                     styles={{ flex: 1 }}
                     data={currencies}
                     renderItem={this.renderItem}
                     refreshing={refresh}
-                    onRefresh={() => this.props.getData(offset)}
+                    onEndReachedThreshold={0.1}
+                    onEndReached={() => this.props.getData(offset)}
+                    keyExtractor={(item, index) => index.toString()}
                 />
             </View>
         );
@@ -43,10 +50,7 @@ class Listings extends React.Component {
 }
 
 function mapStateToProps(state) {
-    let storedCurrencies = state.currency.currencies.map(currency => ({key: currency.id.toString(), ...currency}));
-    //let obj = state.currency.currencies;
-    console.log("object",state.currency.currencies);
-
+    const storedCurrencies = state.currency.currencies.map(currency => ({ ...currency}));
     return {
         refresh: state.currency.refresh,
         offset: state.currency.offset,

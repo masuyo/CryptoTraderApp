@@ -35,7 +35,8 @@ function currencyReducer(state = initialState, action) {
             return {
                 ...state,
                 offset: 0,
-                refresh: !state.refresh,
+                refresh: true,
+                currencies: [],
             };
         default:
             return state;
