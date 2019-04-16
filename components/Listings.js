@@ -40,6 +40,7 @@ class Listings extends React.Component {
                     data={currencies}
                     renderItem={this.renderItem}
                     refreshing={refresh}
+                    onRefresh={() => this.handleRefresh()}
                     onEndReachedThreshold={0.1}
                     onEndReached={() => this.props.getData(offset)}
                     keyExtractor={(item, index) => index.toString()}
