@@ -36,6 +36,7 @@ function currencyReducer(state = initialState, action) {
                 ...state,
                 offset: 0,
                 refresh: true,
+                isLoading: true,
                 currencies: [],
             };
         default:
