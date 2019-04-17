@@ -1,6 +1,6 @@
 import React from 'react';
 import {createBottomTabNavigator, createAppContainer, createStackNavigator} from 'react-navigation';
-import {Icon} from 'react-native-elements'
+import {Icon, Text} from 'react-native-elements'
 import HomeScreen from "../screens/HomeScreen";
 import UpcomingScreen from "../screens/UpcomingScreen";
 import AppHeader from "../components/AppHeader";
@@ -18,6 +18,8 @@ const CustomStackNavigator = screen => {
         }, {
             defaultNavigationOptions: {
                 header: props => <AppHeader {...props} />,
+                headerLeft: <Icon name={'people'} color={'#fff'}/>,
+                headerRight: <Icon name={'menu'} color={'#fff'}/>,
                 headerTintColor: '#fff',
                 headerStyle: {
                     backgroundColor: HeaderColor,
