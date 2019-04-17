@@ -5,9 +5,10 @@ export const REFRESH_USERS = "REFRESH_USERS";
 
 const initialState = {
     isLoading: true,
-    users: [],
     refresh: false,
-    offset: 0,
+    users: [],
+    page: 1,
+    seed: 1,
 };
 
 function userReducer(state = initialState, action) {
@@ -17,8 +18,8 @@ function userReducer(state = initialState, action) {
                 ...state,
                 isLoading: false,
                 refresh: false,
-                offset: state.offset + 20,
-                users: [...state.users, ...action.payload],
+                users: state.page === 1 ? action.payload : [...state.users, ...action.payload],
+                page: state.page + 1,
             };
         case GET_CURRENCIES_PENDING:
             return {
@@ -31,13 +32,12 @@ function userReducer(state = initialState, action) {
                 isLoading: false,
             };
         case REFRESH_USERS:
-            console.log("REFRESH!4444", state.refresh);
             return {
                 ...state,
-                offset: 0,
+                page: 1,
+                seed: state.seed + 1,
                 refresh: true,
                 isLoading: true,
-                users: [],
             };
         default:
             return state;

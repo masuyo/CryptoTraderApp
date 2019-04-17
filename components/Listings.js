@@ -1,12 +1,12 @@
 import React from 'react';
-import { StyleSheet, View, ActivityIndicator, FlatList } from 'react-native';
+import { StyleSheet, View, ActivityIndicator, FlatList, Button } from 'react-native';
 import { ListItem } from 'react-native-elements';
 import { connect } from "react-redux";
 import { getData, refreshData } from "../store/Actions";
 
 class Listings extends React.Component {
     componentDidMount() {
-        this.props.getData(0);
+        this.props.getData(1, 1);
     }
 
     renderItem = ({ item }) => (
@@ -25,8 +25,7 @@ class Listings extends React.Component {
     }
 
     render() {
-        console.log("REFRESH: ", this.props.refresh);
-        const { isLoading, users, refresh } = this.props;
+        const { isLoading, users, refresh, page, seed } = this.props;
         if (isLoading) {
             return (
                 <View style={styles.container}>
@@ -36,28 +35,32 @@ class Listings extends React.Component {
         }
         return (
             <View style={styles.container}>
-                    <FlatList
-                        styles={{ flex: 1 }}
-                        data={users}
-                        renderItem={this.renderItem}
-                        refreshing={refresh}
-                        onRefresh={() => this.handleRefresh()}
-                        onEndReachedThreshold={0.1}
-                        onEndReached={() => this.props.getData(1,1)}
-                        keyExtractor={(item, index) => index.toString()}
-                    />
+                <Button
+                    title="Refresh"
+                    onPress={() => this.handleRefresh()}
+                />
+                <FlatList
+                    styles={{ flex: 1 }}
+                    data={users}
+                    renderItem={this.renderItem}
+                    refreshing={refresh}
+                    onRefresh={() => this.handleRefresh()}
+                    onEndReachedThreshold={0.1}
+                    onEndReached={() => this.props.getData(page, seed)}
+                    keyExtractor={(item, index) => index.toString()}
+                />
             </View>
         );
     }
 }
 
 function mapStateToProps(state) {
-    const storedUsers = state.users.users.map(user => ({ ...user}));
-    console.log("stored", storedUsers.length);
     return {
         refresh: state.users.refresh,
         offset: state.users.offset,
-        users: storedUsers,
+        users: state.users.users,
+        page: state.users.page,
+        seed: state.users.seed,
     };
 }
 
@@ -75,7 +78,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
     },
     item: {
-        padding: 10,
+        padding: 2,
         borderBottomWidth: 1,
         borderBottomColor: '#ccc'
     }

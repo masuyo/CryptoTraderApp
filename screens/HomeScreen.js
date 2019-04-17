@@ -10,10 +10,10 @@ export default class HomeScreen extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text>Home</Text>
                 <Button
                     title="Go to Upcoming"
-                    onPress={() => this.props.navigation.navigate('Upcoming')}/>
+                    onPress={() => this.props.navigation.navigate('Upcoming')}
+                />
                 <Listings />
             </View>
         );
