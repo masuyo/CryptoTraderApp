@@ -1,16 +1,16 @@
 export const GET_CURRENCIES_PENDING = "GET_CURRENCIES_PENDING";
 export const GET_CURRENCIES_FULFILLED = "GET_CURRENCIES_FULFILLED";
 export const GET_CURRENCIES_REJECTED = "GET_CURRENCIES_REJECTED";
-export const REFRESH_CURRENCIES = "REFRESH_CURRENCIES";
+export const REFRESH_USERS = "REFRESH_USERS";
 
 const initialState = {
     isLoading: true,
-    currencies: [],
+    users: [],
     refresh: false,
     offset: 0,
 };
 
-function currencyReducer(state = initialState, action) {
+function userReducer(state = initialState, action) {
     switch (action.type) {
         case GET_CURRENCIES_FULFILLED:
             return {
@@ -18,7 +18,7 @@ function currencyReducer(state = initialState, action) {
                 isLoading: false,
                 refresh: false,
                 offset: state.offset + 20,
-                currencies: [...state.currencies, ...action.payload],
+                users: [...state.users, ...action.payload],
             };
         case GET_CURRENCIES_PENDING:
             return {
@@ -30,18 +30,18 @@ function currencyReducer(state = initialState, action) {
                 ...state,
                 isLoading: false,
             };
-        case REFRESH_CURRENCIES:
+        case REFRESH_USERS:
             console.log("REFRESH!4444", state.refresh);
             return {
                 ...state,
                 offset: 0,
                 refresh: true,
                 isLoading: true,
-                currencies: [],
+                users: [],
             };
         default:
             return state;
     }
 }
 
-export default currencyReducer;
+export default userReducer;

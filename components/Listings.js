@@ -1,5 +1,6 @@
 import React from 'react';
-import {StyleSheet, Text, View, ActivityIndicator, FlatList, Button} from 'react-native';
+import { StyleSheet, View, ActivityIndicator, FlatList } from 'react-native';
+import { ListItem } from 'react-native-elements';
 import { connect } from "react-redux";
 import { getData, refreshData } from "../store/Actions";
 
@@ -9,19 +10,23 @@ class Listings extends React.Component {
     }
 
     renderItem = ({ item }) => (
-      <View style={styles.item}>
-          <Text>id: {item.id}, symbol: {item.symbol}, name: {item.name}</Text>
-      </View>
+        <ListItem
+            style={styles.item}
+            leftAvatar={{ source: { uri: item.picture.thumbnail } }}
+            title={`${item.name.first} ${item.name.last}`}
+            subtitle={item.email}
+            chevron={true}
+        />
     );
 
     handleRefresh() {
         this.props.refreshData();
-        this.props.getData(0);
+        this.props.getData(1, 1);
     }
 
     render() {
         console.log("REFRESH: ", this.props.refresh);
-        const { isLoading, currencies, refresh, offset } = this.props;
+        const { isLoading, users, refresh } = this.props;
         if (isLoading) {
             return (
                 <View style={styles.container}>
@@ -31,31 +36,28 @@ class Listings extends React.Component {
         }
         return (
             <View style={styles.container}>
-                <Button
-                    title="Refresh"
-                    onPress={() => this.handleRefresh()}
-                />
-                <FlatList
-                    styles={{ flex: 1 }}
-                    data={currencies}
-                    renderItem={this.renderItem}
-                    refreshing={refresh}
-                    onRefresh={() => this.handleRefresh()}
-                    onEndReachedThreshold={0.1}
-                    onEndReached={() => this.props.getData(offset)}
-                    keyExtractor={(item, index) => index.toString()}
-                />
+                    <FlatList
+                        styles={{ flex: 1 }}
+                        data={users}
+                        renderItem={this.renderItem}
+                        refreshing={refresh}
+                        onRefresh={() => this.handleRefresh()}
+                        onEndReachedThreshold={0.1}
+                        onEndReached={() => this.props.getData(1,1)}
+                        keyExtractor={(item, index) => index.toString()}
+                    />
             </View>
         );
     }
 }
 
 function mapStateToProps(state) {
-    const storedCurrencies = state.currency.currencies.map(currency => ({ ...currency}));
+    const storedUsers = state.users.users.map(user => ({ ...user}));
+    console.log("stored", storedUsers.length);
     return {
-        refresh: state.currency.refresh,
-        offset: state.currency.offset,
-        currencies: storedCurrencies,
+        refresh: state.users.refresh,
+        offset: state.users.offset,
+        users: storedUsers,
     };
 }
 
@@ -71,8 +73,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
     },
     item: {
         padding: 10,
